@@ -26,6 +26,37 @@ void GameManager::initialize()
 
     // Create bricks
     _brickManager->createBricks(5, 10, 80.0f, 30.0f, 5.0f);
+
+    _baseView = _window->getDefaultView();
+    _currentView = _baseView;
+
+    if (_isShaking) {
+        _shakeTimer += dt;
+        if (_shakeTimer < _shakeDuration) {
+            auto randUnit = []() {
+                return (static_cast<float>(std::rand() % 2001) / 1000.f) - 1.f;
+
+
+                };
+            float offsetX = randUnit() * _shakeMagnitude;
+            float offsetY = randUnit() * _shakeMagnitude;
+
+            _currentView = _baseView;
+            _currentView.move(offsetX, offsetY);
+            _window->setView(_currentView);
+
+
+        }
+        else
+        {
+            _isShaking = false;
+            _shakeTimer = 0.f;
+            _shakeDuration = 0.f;
+            _shakeMagnitude = 0.f;
+            _window->setView(_baseView);
+
+        }
+    }
 }
 
 void GameManager::update(float dt)
@@ -88,9 +119,7 @@ void GameManager::update(float dt)
 
     // timer.
     _time += dt;
-
-
-    if (_time > _timeLastPowerupSpawned + POWERUP_FREQUENCY && rand()%700 == 0)      // TODO parameterise
+    if (_time > _timeLastPowerupSpawned + POWERUP_FREQUENCY && (rand()% POWERUP_SPAWN_ROLL_MAX == 0))
     {
         _powerupManager->spawnPowerup();
         _timeLastPowerupSpawned = _time;
@@ -111,7 +140,8 @@ void GameManager::loseLife()
     _lives--;
     _ui->lifeLost(_lives);
 
-    // TODO screen shake.
+    startScreenShake(0.2f, 15.f);
+    
 }
 
 void GameManager::render()
@@ -122,6 +152,14 @@ void GameManager::render()
     _powerupManager->render();
     _window->draw(_masterText);
     _ui->render();
+}
+
+void GameManager::startScreenShake(float duration, float magnitude)
+{
+    _isShaking = true;
+    _shakeTimer = 0.f;
+    _shakeDuration = duration;
+    _shakeMagnitude = magnitude;
 }
 
 void GameManager::levelComplete()
