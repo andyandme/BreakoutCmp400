@@ -30,6 +30,17 @@ void GameManager::initialize()
     _baseView = _window->getDefaultView();
     _currentView = _baseView;
 
+   
+}
+
+void GameManager::update(float dt)
+{
+    _powerupInEffect = _powerupManager->getPowerupInEffect();
+    _ui->updatePowerupText(_powerupInEffect);
+    _powerupInEffect.second -= dt;
+    
+
+
     if (_isShaking) {
         _shakeTimer += dt;
         if (_shakeTimer < _shakeDuration) {
@@ -57,14 +68,6 @@ void GameManager::initialize()
 
         }
     }
-}
-
-void GameManager::update(float dt)
-{
-    _powerupInEffect = _powerupManager->getPowerupInEffect();
-    _ui->updatePowerupText(_powerupInEffect);
-    _powerupInEffect.second -= dt;
-    
 
     //if (_lives <= 0)
     //{
@@ -119,11 +122,11 @@ void GameManager::update(float dt)
 
     // timer.
     _time += dt;
-    if (_time > _timeLastPowerupSpawned + POWERUP_FREQUENCY && (rand()% POWERUP_SPAWN_ROLL_MAX == 0))
-    {
-        _powerupManager->spawnPowerup();
-        _timeLastPowerupSpawned = _time;
-    }
+    //if (_time > _timeLastPowerupSpawned + POWERUP_FREQUENCY && (rand()% POWERUP_SPAWN_ROLL_MAX == 0))
+    //{
+    //    _powerupManager->spawnPowerup();
+    //    _timeLastPowerupSpawned = _time;
+    //}
 
     // move paddle
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) _paddle->moveRight(dt);
