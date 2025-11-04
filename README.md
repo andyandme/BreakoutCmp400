@@ -1,35 +1,8 @@
-# Breakout
-
-W Kavanagh & N Merchant. Summer 2024 
-
-## controls
-
-A/D to move the paddle right and left.
-P to pause.
-
-## Powerups
-
-big/small paddle (blue)
-fast/slow ball (fancy yellow)
-fire ball (green)
-
-# Tasklist
-
-## Suggested fixes
-
-* Fix the compiler issues in the code
-
-## Suggested tasks
-
-* Implement mouse input for pad
-* Improved VFX (ball trail, paddle hit response, brick particle destruction)
-* Better UI (progress bar rather than timer for countdown).
-* GameLoop
-* Better ball physics (Box2D)
-* Leaderboards
-* More ball types (e.g., multiball, sticky ball [where you shoot the ball from the paddle every time], tiny ball, big ball, brick-tracking ball)
-* Sounds with increasing tone between bounces.
-* Implement commentary with calls to an LLM such as LLama
-
-# Time Details and Changelist
-<Add information to this section about the time you've taken for this task along with a professional changelist.>
+#Breakout
+Andrew Burt
+Student Number: 2204126
+Timings
+0-30mins: Readover Code, Learn How it works. Fixed Error Causing project to crash on launch
+30mins - 2 hrs: Added A Reset button when player loses or complete the level
+2hrs - 3hrs mins: Added a ScreenShake mechanic when the player loses a life
+3hrs- 4 hrs: Changed the location and conditions of the Powerup spawns (Only spawns on a destroyed brick, instead of random)
